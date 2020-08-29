@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# Stolen from @nickjj from --> https://github.com/nickjj/notes
+# Youtube Demo video by nickjj himself --> https://youtu.be/NasPBjSev88
+
+# Everyone has their own way of writing their own braindump so I editted
+# I edited the script to my own way of writing braindumps.
+# by @th3-gr00t
+
+set -e
+
+# Color declaration
+bold=$(tput bold)
+red='\e[0;31m'
+reset='\033[0m'
+blue='\e[1;34m'
+green='\e[1;32m'
+brown='\e[0;33m'
+
+
+export EDITOR="vim"
+
+
+# Some needed variables
+readonly NOTES_DIRECTORY="${NOTES_DIRECTORY:-"${HOME}/braindump"}"
+readonly NOTES_EDITOR="${EDITOR}"
+
+readonly NOTES_FILE="$(date +%Y-%m-%d).txt"
+readonly NOTES_PATH="${NOTES_DIRECTORY}/${NOTES_FILE}"
+
+
+if [ "$1" == "-h" ]  || [ "$1" == "--help" ]; then
+
+	echo -e "            "
+	echo -e "[+] ${bold}${brown}Create a dated text file at a specific location and append text to it.${reset}"
+	echo -e "\n"
+	echo -e "${bold} Usage:${reset}"
+	echo -e "   ${green}braindump${reset} something you want to jot down 					${blue}(appends that text to the file)${reset}"
+	echo -e "   ${green}ls -la ${reset}| ${green}braindump${reset}                       					${blue}(appends your clipboard to the file)${reset}"
+	echo -ne "   ${green}braindump${reset} something you want to jot down${reset}"; echo -n " '\n\t'- plus this also.";echo -e "		${blue}(appends the text to the file)${reset}" 
+	echo -e "   ${green}braindump${reset}                                					${blue}(opens the file in your editor)${reset}"
+	echo -e "            "
+	echo -e "  ${brown}Produces:${reset}"
+	echo -e "     ${red}YYYY-MM-DD.txt${reset} in your ${red}${NOTES_DIRECTORY} ${blue}(this is set below).${reset}"
+	echo -e "            "
+
+
+else
+
+
+	if [ ! -d "${NOTES_DIRECTORY}" ]; then
+	    while true; do
+		read -rp "${NOTES_DIRECTORY} does not exist, do you want to create it? (y/n) " yn
+		case "${yn}" in
+		    [Yy]* ) mkdir -p "${NOTES_DIRECTORY}"; break;;
+		    [Nn]* ) exit;;
+		    * ) echo "Please answer y or n";;
+		esac
+	    done
+	fi
+
+	if [ ${#} -eq 0 ]; then
+	    if [ -p "/dev/stdin" ]; then
+		(echo -e "---- pipe entry ----\n";cat; echo -e "\n---- pipe exit ----";printf "\n\n") >> "${NOTES_PATH}"
+	    else
+		eval "${NOTES_EDITOR}" "${NOTES_PATH}"
+	    fi
+	else
+	    printf "# %b\n\n" "${*}" >> "${NOTES_PATH}"
+	fi
+
+fi
