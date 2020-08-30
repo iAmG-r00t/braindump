@@ -1,7 +1,7 @@
 # :notebook: Brain Dump
 
 - This is a command line tool that allows you to dump all your brain thoughts in a text file.
-- I must say that this script isn't originally built by me, I borrowed the idea and the scirpt from [Nick Janetakis](https://github.com/nickjj/notes), you should check out his [Github](https://github.com/nickjj) page and [YouTube](https://www.youtube.com/channel/UCorzANoC3fX9VVefJHM5wtA) channel he has some really good content.
+- I must say that this script isn't originally built by me, I borrowed the idea and the script from Nick Janetakis' [notes script](https://github.com/nickjj/notes), you should check out [his site](https://nickjanetakis.com) and [YouTube channel](https://www.youtube.com/c/nickjanetakis). He has some really good content.
 - So about the tool, everyone has their own way of note tacking, and for me well I thought I should try and edit the tool to my likeness then I went overboard and also renamed the tool from notes to braindump, no hard feeling nick.
 - So I won't get into the small stuff explaining how the tool works, but their is a video below that will show you how it works apart from the installation bit.
 
